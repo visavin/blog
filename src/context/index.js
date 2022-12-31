@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const BlogApiService = React.createContext()
+export const BlogService = React.createContext()
 
-const { Provider: BlogApiServiceProvider, Consumer: BlogApiServiceConsumer } = BlogApiService
+const { Provider: BlogApiServiceProvider, Consumer: BlogApiServiceConsumer } = BlogService
 
 export { BlogApiServiceProvider, BlogApiServiceConsumer }

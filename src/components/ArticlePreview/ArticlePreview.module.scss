@@ -1,0 +1,127 @@
+.article {
+  margin: 0;
+  padding: 15px 14px 24px 19px;
+  width: 941px;
+  height: 140px;
+  background: #FFFFFF;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  gap: 1px;
+
+  &-left-column {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  &-header {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &-title {
+    margin: 0 8px 0 0;
+    padding: 0;
+    font-family: 'Inter UI', sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 28px;
+    color: #1890FF;
+  }
+
+  &-heart-img {
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 16px;
+  }
+
+  &-heart-count {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter UI', sans-serif;
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.75);
+  }
+
+  &-taglist {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 8px;
+  }
+
+  &-tag {
+    margin: 0;
+    padding: 2px 5px;
+    display: inline-block;
+    height: 19px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+  }
+
+  &-description {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter UI', sans-serif;
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.75);
+  }
+
+  &-right-column {
+    display: flex;
+    flex-direction: row;
+    width: 340px;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  &-username {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter UI', sans-serif;
+    font-size: 18px;
+    line-height: 28px;
+    display: flex;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  &-date {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter UI', sans-serif;
+    font-size: 12px;
+    line-height: 22px;
+    display: flex;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  &-avatar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+  }
+}
