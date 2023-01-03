@@ -10,6 +10,7 @@
     padding: 0;
     list-style: none;
     display: flex;
+    align-items: center;
     gap: 22px;
   }
 
@@ -26,6 +27,33 @@
     color: rgba(0, 0, 0, 0.85);
     text-decoration: none;
   }
+
+  &-link__small {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+
+  &-username {
+    margin: 0 -6px 0 0;
+    padding: 0;
+    font-family: 'Inter UI', sans-serif;
+    font-size: 18px;
+    line-height: 28px;
+    display: flex;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  &-avatar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 0 -6px;
+    padding: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+  }
 }
 
 .border-green {
@@ -33,4 +61,16 @@
   color: #52C41A;
   border: 1px solid #52C41A;
   border-radius: 5px;
+}
+
+.border-black {
+  padding: 6px 18px;
+  color: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+}
+
+button {
+  cursor: pointer;
+  background: #FFFFFF;
 }

@@ -2,8 +2,8 @@ const initialState = {
   articles: [],
   articlesCount: null,
   error: null,
-  limit: 50,
-  offset: 28000,
+  limit: 5,
+  offset: 0,
 }
 
 export const articlesReducer = (state = initialState, action) => {

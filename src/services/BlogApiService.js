@@ -3,6 +3,24 @@ import { format, parseISO } from 'date-fns'
 export default class BlogApiService {
   _apiBase = 'https://blog.kata.academy/api'
 
+  async postRequest(url, bodyRequest, parameters = '') {
+    const res = await fetch(`${this._apiBase}${url}${parameters}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(bodyRequest),
+    })
+
+    return await res.json()
+  }
+
+  async registerUsers(user) {
+    return await this.postRequest('/users', {
+      user: user,
+    })
+  }
+
   async getResource(url, parameters = '') {
     const res = await fetch(`${this._apiBase}${url}${parameters}`)
 
@@ -10,6 +28,11 @@ export default class BlogApiService {
       throw new Error(`Could not fetch ${url}` + `, received ${res.status}`)
     }
     return await res.json()
+  }
+
+  async getUserProfile(username) {
+    const result = await this.getResource(`/profiles/${username}`)
+    return result.profile
   }
 
   async getArticlesList(limit, offset) {
