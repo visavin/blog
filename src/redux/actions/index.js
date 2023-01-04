@@ -29,3 +29,25 @@ export const fetchUserImage = (blogApiService, username) => (dispatch) => {
 }
 
 export const userLogoutSuccess = () => ({ type: 'SET_LOGOUT' })
+
+export const userLoginSuccess = (user) => ({ type: 'FETCH_USER_LOGIN_SUCCESS', payload: user })
+
+export const userLoginError = (errors, formData) => ({ type: 'FETCH_USER_LOGIN_FAILURE', errors, formData })
+
+export const fetchUserLogin = (blogApiService, user) => (dispatch) => {
+  blogApiService.loginUsers(user).then((data) => {
+    if (data.user) dispatch(userLoginSuccess(data))
+    if (data.errors) dispatch(userLoginError(data, user))
+  })
+}
+
+export const userUpdateSuccess = (user) => ({ type: 'FETCH_USER_UPDATE_SUCCESS', payload: user })
+
+export const userUpdateError = (errors, formData) => ({ type: 'FETCH_USER_UPDATE_FAILURE', errors, formData })
+
+export const fetchUserUpdate = (blogApiService, user, token) => (dispatch) => {
+  blogApiService.updateUsers(user, token).then((data) => {
+    if (data.user) dispatch(userUpdateSuccess(data))
+    if (data.errors) dispatch(userUpdateError(data, user))
+  })
+}

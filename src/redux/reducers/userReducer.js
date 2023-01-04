@@ -2,7 +2,6 @@ const initialState = {
   email: null,
   token: null,
   username: null,
-  bio: null,
   image: null,
   error: null,
 }
@@ -14,9 +13,44 @@ export const userReducer = (state = initialState, action) => {
         email: null,
         token: null,
         username: null,
-        bio: null,
         image: null,
         error: null,
+      }
+
+    case 'FETCH_USER_LOGIN_SUCCESS':
+      return {
+        email: action.payload.user.email,
+        token: action.payload.user.token,
+        username: action.payload.user.username,
+        image: null,
+        error: null,
+      }
+
+    case 'FETCH_USER_LOGIN_FAILURE':
+      return {
+        email: action.formData.email,
+        token: null,
+        username: null,
+        image: null,
+        error: action.errors,
+      }
+
+    case 'FETCH_USER_UPDATE_SUCCESS':
+      return {
+        email: action.payload.user.email,
+        token: action.payload.user.token,
+        username: action.payload.user.username,
+        image: action.payload.user.image,
+        error: null,
+      }
+
+    case 'FETCH_USER_UPDATE_FAILURE':
+      return {
+        email: action.formData.email,
+        token: state.token,
+        username: action.formData.username,
+        image: state.image,
+        error: action.errors,
       }
 
     case 'FETCH_USER_REGISTER_SUCCESS':
@@ -24,7 +58,6 @@ export const userReducer = (state = initialState, action) => {
         email: action.payload.user.email,
         token: action.payload.user.token,
         username: action.payload.user.username,
-        bio: null,
         image: null,
         error: null,
       }
@@ -34,7 +67,6 @@ export const userReducer = (state = initialState, action) => {
         email: action.formData.email,
         token: null,
         username: action.formData.username,
-        bio: null,
         image: null,
         error: action.errors,
       }
@@ -44,7 +76,6 @@ export const userReducer = (state = initialState, action) => {
         email: state.email,
         token: state.token,
         username: state.username,
-        bio: state.bio,
         image: action.payload,
         error: null,
       }

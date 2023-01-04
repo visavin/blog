@@ -5,6 +5,8 @@ import ArticlesList from '../ArticlesList'
 import Header from '../Header'
 import ArticleDetails from '../ArticleDetails'
 import SignUp from '../SignUp'
+import SignIn from '../SignIn'
+import Profile from '../Profile'
 
 import classes from './App.module.scss'
 
@@ -23,7 +25,9 @@ const App = () => {
               return <ArticleDetails slug={id} />
             }}
           />
+          <Route path="/sign-in" component={SignIn} />
           <Route path="/sign-up" component={SignUp} />
+          <Route path="/profile" component={Profile} />
           <Route render={() => <h2>Page not found</h2>} />
         </Switch>
       </div>

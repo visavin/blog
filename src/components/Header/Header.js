@@ -33,10 +33,14 @@ const Header = () => {
         </Link>
       </li>
       <li>
-        <h6 className={classes['header-username']}>{user.username}</h6>
+        <Link to="/profile" className={classes['header-link']}>
+          <h6 className={classes['header-username']}>{user.username}</h6>
+        </Link>
       </li>
       <li>
-        <img className={classes['header-avatar']} src={user.image} alt="" />
+        <Link to="/profile" className={classes['header-link']}>
+          <img className={classes['header-avatar']} src={user.image} alt="" />
+        </Link>
       </li>
       <li>
         <button
