@@ -11,8 +11,6 @@ const ArticleDetails = ({ slug }) => {
   const elements = item.tagList
     .filter((el) => el.length > 0)
     .map((tag, index) => {
-      console.log('tag.length= ', tag.length)
-      console.log('tag= ', tag)
       return (
         <li key={index} className="article-tag">
           {tag}

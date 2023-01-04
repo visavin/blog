@@ -47,7 +47,11 @@ export const userUpdateError = (errors, formData) => ({ type: 'FETCH_USER_UPDATE
 
 export const fetchUserUpdate = (blogApiService, user, token) => (dispatch) => {
   blogApiService.updateUsers(user, token).then((data) => {
-    if (data.user) dispatch(userUpdateSuccess(data))
+    if (data.user) {
+      dispatch(userUpdateSuccess(data))
+      window.localStorage.setItem('userBlogData', JSON.stringify(data))
+      alert('Profile update success')
+    }
     if (data.errors) dispatch(userUpdateError(data, user))
   })
 }

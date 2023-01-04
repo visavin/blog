@@ -40,9 +40,15 @@ const SignIn = ({ history }) => {
   useEffect(() => {
     if (user.token) {
       dispatch(fetchUserImage(BlogApiService, user.username))
-      history.push('/')
     }
   }, [user.token])
+
+  useEffect(() => {
+    if (user.image) {
+      window.localStorage.setItem('userBlogData', JSON.stringify({ user }))
+      history.push('/')
+    }
+  }, [user.image])
 
   return (
     <div className={classes['signup-layout']}>

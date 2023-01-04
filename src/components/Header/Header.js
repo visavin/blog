@@ -45,7 +45,10 @@ const Header = () => {
       <li>
         <button
           className={[classes['header-link'], classes['border-black']].join(' ')}
-          onClick={() => dispatch(userLogoutSuccess())}
+          onClick={() => {
+            dispatch(userLogoutSuccess())
+            window.localStorage.removeItem('userBlogData')
+          }}
         >
           Log Out
         </button>

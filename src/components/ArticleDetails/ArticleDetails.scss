@@ -61,6 +61,7 @@
     padding: 0;
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
   }
 
@@ -69,7 +70,9 @@
     padding: 2px 5px;
     display: inline-block;
     height: 19px;
+    max-width: 500px;
     overflow: hidden;
+    overflow-wrap: break-word;
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -136,5 +139,13 @@
     font-size: 20px;
     line-height: 28px;
     color: rgba(0, 0, 0, 0.75);
+    width: 880px;
+    overflow-wrap: break-word;
+
+    & code {
+      width: 880px;
+      display: block;
+      overflow-x: scroll;
+    }
   }
 }

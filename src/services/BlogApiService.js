@@ -81,9 +81,11 @@ export default class BlogApiService {
         console.log(error.message)
       }
     }
+    // const newTagList = article.tagList.map((item) => shorten(item, 100))
 
     return {
       ...article,
+      // tagList: newTagList,
       title: shorten(article.title, 50),
       createdAt: formatDate(article.createdAt),
       updatedAt: formatDate(article.updatedAt),

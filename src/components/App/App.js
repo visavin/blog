@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
+import { userUpdateSuccess } from '../../redux/actions'
 import ArticlesList from '../ArticlesList'
 import Header from '../Header'
 import ArticleDetails from '../ArticleDetails'
@@ -11,6 +13,14 @@ import Profile from '../Profile'
 import classes from './App.module.scss'
 
 const App = () => {
+  const getLocalStorage = () => {
+    const userBlog = window.localStorage.getItem('userBlogData')
+    if (userBlog) return JSON.parse(userBlog)
+  }
+  const dispatch = useDispatch()
+  const initialUserState = getLocalStorage()
+  if (initialUserState) dispatch(userUpdateSuccess(initialUserState))
+
   return (
     <Router>
       <div className={classes.container}>
