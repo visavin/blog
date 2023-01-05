@@ -3,6 +3,25 @@ import { format, parseISO } from 'date-fns'
 export default class BlogApiService {
   _apiBase = 'https://blog.kata.academy/api'
 
+  async authPostRequest(url, token, bodyRequest) {
+    const res = await fetch(`${this._apiBase}${url}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Token ${token}`,
+      },
+      body: JSON.stringify(bodyRequest),
+    })
+
+    return await res.json()
+  }
+
+  async createArticle(article, token) {
+    return await this.authPostRequest('/articles', token, {
+      article: article,
+    })
+  }
+
   async authPutRequest(url, token, bodyRequest) {
     const res = await fetch(`${this._apiBase}${url}`, {
       method: 'PUT',

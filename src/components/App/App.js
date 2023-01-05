@@ -9,6 +9,7 @@ import ArticleDetails from '../ArticleDetails'
 import SignUp from '../SignUp'
 import SignIn from '../SignIn'
 import Profile from '../Profile'
+import NewArticle from '../NewArticle'
 
 import classes from './App.module.scss'
 
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/sign-in" component={SignIn} />
           <Route path="/sign-up" component={SignUp} />
           <Route path="/profile" component={Profile} />
+          <Route path="/new-article" component={NewArticle} />
           <Route render={() => <h2>Page not found</h2>} />
         </Switch>
       </div>

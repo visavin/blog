@@ -143,9 +143,10 @@
     overflow-wrap: break-word;
 
     & code {
+      background: rgba(225, 225, 225, 0.25);
       width: 880px;
       display: block;
-      overflow-x: scroll;
+      overflow-x: auto;
     }
   }
 }

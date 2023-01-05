@@ -8,15 +8,18 @@ const ArticleDetails = ({ slug }) => {
   const articles = useSelector((state) => state.articles)
   const item = articles.articles.filter((element) => element.slug === slug)[0]
 
-  const elements = item.tagList
-    .filter((el) => el.length > 0)
-    .map((tag, index) => {
-      return (
-        <li key={index} className="article-tag">
-          {tag}
-        </li>
-      )
-    })
+  let elements = null
+  if (item.tagList) {
+    elements = item.tagList
+      .filter((el) => (el ? el.length : null))
+      .map((tag, index) => {
+        return (
+          <li key={index} className="article-tag">
+            {tag}
+          </li>
+        )
+      })
+  }
 
   return (
     <div className="artcontainer">

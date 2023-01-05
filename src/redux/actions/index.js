@@ -55,3 +55,13 @@ export const fetchUserUpdate = (blogApiService, user, token) => (dispatch) => {
     if (data.errors) dispatch(userUpdateError(data, user))
   })
 }
+
+export const articleResetRequest = () => ({ type: 'SET_ARTICLE_RESET' })
+
+export const createArticleSuccess = (article) => ({ type: 'FETCH_CREATE_ARTICLE_SUCCESS', payload: article })
+
+export const fetchCreateArticle = (blogApiService, article, token) => (dispatch) => {
+  blogApiService.createArticle(article, token).then((data) => {
+    if (data.article) dispatch(createArticleSuccess(data))
+  })
+}

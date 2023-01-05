@@ -3,15 +3,18 @@ import { HeartOutlined } from '@ant-design/icons'
 import classes from './ArticlePreview.module.scss'
 
 const ArticlePreview = ({ item }) => {
-  const elements = item.tagList
-    .filter((el) => el.length > 0)
-    .map((tag, index) => {
-      return (
-        <li key={index} className={classes['article-tag']}>
-          {tag}
-        </li>
-      )
-    })
+  let elements = null
+  if (item.tagList) {
+    elements = item.tagList
+      .filter((el) => (el ? el.length : null))
+      .map((tag, index) => {
+        return (
+          <li key={index} className={classes['article-tag']}>
+            {tag}
+          </li>
+        )
+      })
+  }
 
   return (
     <div className={classes.article}>
