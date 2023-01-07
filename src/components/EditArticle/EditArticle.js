@@ -4,22 +4,36 @@ import { useDispatch, useSelector } from 'react-redux'
 import React, { useContext, useEffect } from 'react'
 
 import { BlogService } from '../../context'
-import { articleResetRequest, fetchCreateArticle } from '../../redux/actions'
+import { articleResetRequest, fetchUpdateArticle } from '../../redux/actions'
 
-import classes from './NewArticle.module.scss'
+import classes from './EditArticle.module.scss'
 
-const NewArticle = ({ history }) => {
+const EditArticle = (props) => {
+  const { history, slug } = props
   const dispatch = useDispatch()
-  const article = useSelector((state) => state.article)
   const user = useSelector((state) => state.user)
+  if (!user?.token) return <Redirect to="/sign-in" />
+  const articles = useSelector((state) => state.articles)
+  if (!articles.articles.length) return <Redirect to="/articles/" />
+  const article = useSelector((state) => state.article)
   const BlogApiService = useContext(BlogService)
+
+  const item = articles.articles.filter((element) => element.slug === slug)[0]
 
   const {
     register,
     control,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm({ mode: 'all' })
+  } = useForm({
+    mode: 'all',
+    defaultValues: {
+      title: item.title,
+      description: item.description,
+      body: item.body,
+      tagList: item.tagList,
+    },
+  })
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -27,12 +41,14 @@ const NewArticle = ({ history }) => {
   })
 
   const onSubmit = (data) => {
-    dispatch(fetchCreateArticle(BlogApiService, data, user.token))
+    dispatch(fetchUpdateArticle(BlogApiService, slug, data, user.token))
   }
 
   useEffect(() => {
-    if (article.article?.slug) {
-      history.push('/')
+    if (article.article) {
+      if (article.article.slug) {
+        history.push('/')
+      }
     }
   }, [article.article])
 
@@ -42,12 +58,10 @@ const NewArticle = ({ history }) => {
     }
   }, [])
 
-  if (!user?.token) return <Redirect to="/sign-in" />
-
   return (
     <div className={classes['new-article-layout']}>
       <form className={classes['form']} onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={classes['form__header']}>Edit article</h1>
+        <h1 className={classes['form__header']}>Create new article</h1>
         <div className={classes['form__input-fields']}>
           <label className={classes['form__label']}>
             Title
@@ -137,4 +151,4 @@ const NewArticle = ({ history }) => {
   )
 }
 
-export default withRouter(NewArticle)
+export default withRouter(EditArticle)

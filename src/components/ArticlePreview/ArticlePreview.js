@@ -1,4 +1,4 @@
-import { HeartOutlined } from '@ant-design/icons'
+import { HeartFilled, HeartOutlined } from '@ant-design/icons'
 
 import classes from './ArticlePreview.module.scss'
 
@@ -16,12 +16,18 @@ const ArticlePreview = ({ item }) => {
       })
   }
 
+  const favoriteIcon = !item.favorited ? (
+    <HeartOutlined className={classes['article-heart-img']} />
+  ) : (
+    <HeartFilled className={[classes['article-heart-img'], classes['article-heart-img__favorite']].join(' ')} />
+  )
+
   return (
     <div className={classes.article}>
       <div className={classes['article-left-column']}>
         <div className={classes['article-header']}>
           <h5 className={classes['article-title']}>{item.title}</h5>
-          <HeartOutlined className={classes['article-heart-img']} />
+          {favoriteIcon}
           <p className={classes['article-heart-count']}>{item.favoritesCount}</p>
         </div>
         <ul className={classes['article-taglist']}>{elements}</ul>

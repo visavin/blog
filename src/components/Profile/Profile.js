@@ -1,7 +1,7 @@
-import { withRouter } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import { BlogService } from '../../context'
 import { fetchUserUpdate } from '../../redux/actions'
@@ -45,6 +45,8 @@ const Profile = () => {
         setError('username', { type: 'validate', message: 'Username is already taken!' }, { shouldFocus: true })
     }
   }, [user.error])
+
+  if (!user?.token) return <Redirect to="/sign-in" />
 
   return (
     <div className={classes['signup-layout']}>

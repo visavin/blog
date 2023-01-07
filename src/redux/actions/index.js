@@ -4,11 +4,13 @@ const articlesListLoaded = (newArticles) => ({ type: 'FETCH_GET_ARTICLES_SUCCESS
 
 const articlesListError = (error) => ({ type: 'FETCH_GET_ARTICLES_FAILURE', payload: error })
 
-export const fetchArticlesList = (blogApiService, limit, offset) => (dispatch) => {
-  blogApiService
-    .getArticlesList(limit, offset)
-    .then((data) => dispatch(articlesListLoaded(data)))
-    .catch((err) => dispatch(articlesListError(err)))
+export const fetchArticlesList = (blogApiService, limit, offset, token = null) => {
+  return (dispatch) => {
+    blogApiService
+      .getArticlesList(limit, offset, token)
+      .then((data) => dispatch(articlesListLoaded(data)))
+      .catch((err) => dispatch(articlesListError(err)))
+  }
 }
 
 export const userRegisteredSuccess = (user) => ({ type: 'FETCH_USER_REGISTER_SUCCESS', payload: user })
@@ -58,10 +60,16 @@ export const fetchUserUpdate = (blogApiService, user, token) => (dispatch) => {
 
 export const articleResetRequest = () => ({ type: 'SET_ARTICLE_RESET' })
 
-export const createArticleSuccess = (article) => ({ type: 'FETCH_CREATE_ARTICLE_SUCCESS', payload: article })
+export const didArticleSuccess = (article) => ({ type: 'FETCH_ARTICLE_SUCCESS', payload: article })
 
 export const fetchCreateArticle = (blogApiService, article, token) => (dispatch) => {
   blogApiService.createArticle(article, token).then((data) => {
-    if (data.article) dispatch(createArticleSuccess(data))
+    if (data.article) dispatch(didArticleSuccess(data))
+  })
+}
+
+export const fetchUpdateArticle = (blogApiService, slug, article, token) => (dispatch) => {
+  blogApiService.updateArticle(slug, article, token).then((data) => {
+    if (data.article) dispatch(didArticleSuccess(data))
   })
 }

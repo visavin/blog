@@ -5,7 +5,7 @@ export const oneArticleReducer = (state = initialState, action) => {
     case 'SET_ARTICLE_RESET':
       return {}
 
-    case 'FETCH_CREATE_ARTICLE_SUCCESS':
+    case 'FETCH_ARTICLE_SUCCESS':
       return action.payload
 
     default:

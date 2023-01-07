@@ -13,14 +13,17 @@ import classes from './ArticlesList.module.scss'
 const ArticlesList = ({ history }) => {
   const dispatch = useDispatch()
   const articles = useSelector((state) => state.articles)
+  const user = useSelector((state) => state.user)
   const BlogApiService = useContext(BlogService)
 
   useEffect(() => {
-    dispatch(fetchArticlesList(BlogApiService, articles.limit, articles.offset))
+    if (user?.token) dispatch(fetchArticlesList(BlogApiService, articles.limit, articles.offset, user.token))
+    else dispatch(fetchArticlesList(BlogApiService, articles.limit, articles.offset))
   }, [])
 
   useEffect(() => {
-    dispatch(fetchArticlesList(BlogApiService, articles.limit, articles.offset))
+    if (user?.token) dispatch(fetchArticlesList(BlogApiService, articles.limit, articles.offset, user.token))
+    else dispatch(fetchArticlesList(BlogApiService, articles.limit, articles.offset))
   }, [articles.offset])
 
   const onChangePage = (page) => {

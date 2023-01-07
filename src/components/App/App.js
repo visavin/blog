@@ -10,6 +10,7 @@ import SignUp from '../SignUp'
 import SignIn from '../SignIn'
 import Profile from '../Profile'
 import NewArticle from '../NewArticle'
+import EditArticle from '../EditArticle'
 
 import classes from './App.module.scss'
 
@@ -30,10 +31,18 @@ const App = () => {
           <Route path="/" render={() => <Redirect to="/articles/" />} exact />
           <Route path="/articles/" component={ArticlesList} exact />
           <Route
+            exact
             path="/articles/:id"
             render={({ match }) => {
               const { id } = match.params
               return <ArticleDetails slug={id} />
+            }}
+          />
+          <Route
+            path="/articles/:id/edit"
+            render={({ match }) => {
+              const { id } = match.params
+              return <EditArticle slug={id} />
             }}
           />
           <Route path="/sign-in" component={SignIn} />

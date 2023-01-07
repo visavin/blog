@@ -3,6 +3,19 @@ import { format, parseISO } from 'date-fns'
 export default class BlogApiService {
   _apiBase = 'https://blog.kata.academy/api'
 
+  async authDeleteRequest(url, token) {
+    return await fetch(`${this._apiBase}${url}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+  }
+
+  async deleteArticle(slug, token) {
+    return await this.authDeleteRequest(`/articles/${slug}`, token)
+  }
+
   async authPostRequest(url, token, bodyRequest) {
     const res = await fetch(`${this._apiBase}${url}`, {
       method: 'POST',
@@ -18,6 +31,12 @@ export default class BlogApiService {
 
   async createArticle(article, token) {
     return await this.authPostRequest('/articles', token, {
+      article: article,
+    })
+  }
+
+  async updateArticle(slug, article, token) {
+    return await this.authPutRequest(`/articles/${slug}`, token, {
       article: article,
     })
   }
@@ -65,6 +84,23 @@ export default class BlogApiService {
     })
   }
 
+  async authGetResource(url, token, parameters = '') {
+    let res
+    if (token) {
+      res = await fetch(`${this._apiBase}${url}${parameters}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+    } else res = await fetch(`${this._apiBase}${url}${parameters}`)
+
+    if (!res.ok) {
+      throw new Error(`Could not fetch ${url}` + `, received ${res.status}`)
+    }
+    return await res.json()
+  }
+
   async getResource(url, parameters = '') {
     const res = await fetch(`${this._apiBase}${url}${parameters}`)
 
@@ -79,8 +115,8 @@ export default class BlogApiService {
     return result.profile
   }
 
-  async getArticlesList(limit, offset) {
-    const result = await this.getResource('/articles', `?limit=${limit}&offset=${offset}`)
+  async getArticlesList(limit, offset, token) {
+    const result = await this.authGetResource('/articles', token, `?limit=${limit}&offset=${offset}`)
     return {
       articles: result.articles.map(this._transformArticles),
       articlesCount: result.articlesCount,
