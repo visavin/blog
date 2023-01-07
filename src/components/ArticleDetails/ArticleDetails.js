@@ -1,19 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import { message, Popconfirm } from 'antd'
 import { HeartFilled, HeartOutlined } from '@ant-design/icons'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './ArticleDetails.scss'
 import { BlogService } from '../../context'
 import classes from '../ArticlePreview/ArticlePreview.module.scss'
+import { articleResetRequest, fetchArticlesList, fetchDisLikeArticle, fetchLikeArticle } from '../../redux/actions'
 
 const ArticleDetails = (props) => {
   const { history, slug } = props
-  const BlogApiService = useContext(BlogService)
+  const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
+  const article = useSelector((state) => state.article)
   const articles = useSelector((state) => state.articles)
+  const BlogApiService = useContext(BlogService)
   if (!articles.articles.length) return <Redirect to="/articles/" />
 
   const item = articles.articles.filter((element) => element.slug === slug)[0]
@@ -31,11 +34,29 @@ const ArticleDetails = (props) => {
       })
   }
 
+  const onHeartClick = () => {
+    if (user?.token) {
+      if (item.favorited) dispatch(fetchDisLikeArticle(BlogApiService, item.slug, user.token))
+      else dispatch(fetchLikeArticle(BlogApiService, item.slug, user.token))
+    } else history.push('/sign-in')
+  }
+
   const favoriteIcon = !item.favorited ? (
-    <HeartOutlined className={classes['article-heart-img']} />
+    <HeartOutlined onClick={onHeartClick} className={classes['article-heart-img']} />
   ) : (
-    <HeartFilled className={[classes['article-heart-img'], classes['article-heart-img__favorite']].join(' ')} />
+    <HeartFilled
+      onClick={onHeartClick}
+      className={[classes['article-heart-img'], classes['article-heart-img__favorite']].join(' ')}
+    />
   )
+
+  useEffect(() => {
+    if (user?.token) dispatch(fetchArticlesList(BlogApiService, articles.limit, articles.offset, user.token))
+  }, [article.article])
+
+  useEffect(() => {
+    if (article.article) dispatch(articleResetRequest())
+  }, [item.favorited])
 
   const confirm = () => {
     message

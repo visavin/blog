@@ -24,7 +24,7 @@ const ArticlesList = ({ history }) => {
   useEffect(() => {
     if (user?.token) dispatch(fetchArticlesList(BlogApiService, articles.limit, articles.offset, user.token))
     else dispatch(fetchArticlesList(BlogApiService, articles.limit, articles.offset))
-  }, [articles.offset])
+  }, [articles.offset, user?.token])
 
   const onChangePage = (page) => {
     dispatch(articlesOffsetRequested((page - 1) * articles.limit))

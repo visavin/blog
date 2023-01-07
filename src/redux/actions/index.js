@@ -73,3 +73,15 @@ export const fetchUpdateArticle = (blogApiService, slug, article, token) => (dis
     if (data.article) dispatch(didArticleSuccess(data))
   })
 }
+
+export const fetchLikeArticle = (blogApiService, slug, token) => (dispatch) => {
+  blogApiService.favoriteArticle(slug, token).then((data) => {
+    if (data.article) dispatch(didArticleSuccess(data))
+  })
+}
+
+export const fetchDisLikeArticle = (blogApiService, slug, token) => (dispatch) => {
+  blogApiService.unFavoriteArticle(slug, token).then((data) => {
+    if (data.article) dispatch(didArticleSuccess(data))
+  })
+}

@@ -3,6 +3,22 @@ import { format, parseISO } from 'date-fns'
 export default class BlogApiService {
   _apiBase = 'https://blog.kata.academy/api'
 
+  async authJsonDeleteRequest(url, token) {
+    const res = await fetch(`${this._apiBase}${url}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Token ${token}`,
+      },
+    })
+
+    return await res.json()
+  }
+
+  async unFavoriteArticle(slug, token) {
+    return await this.authJsonDeleteRequest(`/articles/${slug}/favorite`, token)
+  }
+
   async authDeleteRequest(url, token) {
     return await fetch(`${this._apiBase}${url}`, {
       method: 'DELETE',
@@ -27,6 +43,22 @@ export default class BlogApiService {
     })
 
     return await res.json()
+  }
+
+  async authEmptyPostRequest(url, token) {
+    const res = await fetch(`${this._apiBase}${url}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Token ${token}`,
+      },
+    })
+
+    return await res.json()
+  }
+
+  async favoriteArticle(slug, token) {
+    return await this.authEmptyPostRequest(`/articles/${slug}/favorite`, token)
   }
 
   async createArticle(article, token) {

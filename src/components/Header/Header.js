@@ -47,6 +47,7 @@ const Header = () => {
           className={[classes['header-link'], classes['border-black']].join(' ')}
           onClick={() => {
             dispatch(userLogoutSuccess())
+            // dispatch(articleResetRequest())
             window.localStorage.removeItem('userBlogData')
           }}
         >
