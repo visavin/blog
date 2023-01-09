@@ -95,6 +95,8 @@
     font-size: 12px;
     line-height: 22px;
     color: rgba(0, 0, 0, 0.75);
+    max-width: 600px;
+    overflow-wrap: break-word;
   }
 
   &-right-column {
@@ -106,7 +108,7 @@
     &__top {
       display: flex;
       flex-direction: row;
-      width: 340px;
+      max-width: 340px;
       justify-content: flex-end;
       gap: 12px;
     }

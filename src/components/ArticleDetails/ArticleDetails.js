@@ -24,7 +24,7 @@ const ArticleDetails = (props) => {
   let elements = null
   if (item.tagList) {
     elements = item.tagList
-      .filter((el) => (el ? el.length : null))
+      .filter((el) => (el ? el.length && el !== ' ' : null))
       .map((tag, index) => {
         return (
           <li key={index} className="article-tag">
