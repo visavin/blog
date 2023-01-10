@@ -62,12 +62,6 @@ export const articleResetRequest = () => ({ type: 'SET_ARTICLE_RESET' })
 
 export const didArticleSuccess = (article) => ({ type: 'FETCH_ARTICLE_SUCCESS', payload: article })
 
-export const fetchCreateArticle = (blogApiService, article, token) => (dispatch) => {
-  blogApiService.createArticle(article, token).then((data) => {
-    if (data.article) dispatch(didArticleSuccess(data))
-  })
-}
-
 export const fetchUpdateArticle = (blogApiService, article, token, slug) => (dispatch) => {
   blogApiService.updateArticle(article, token, slug).then((data) => {
     if (data.article) dispatch(didArticleSuccess(data))

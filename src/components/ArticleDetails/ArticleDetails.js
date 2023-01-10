@@ -34,10 +34,8 @@ const ArticleDetails = (props) => {
   }
 
   const onHeartClick = () => {
-    //if (user?.token) {
     if (item.favorited) dispatch(fetchDisLikeArticle(BlogApiService, item.slug, user.token))
     else dispatch(fetchLikeArticle(BlogApiService, item.slug, user.token))
-    //} else history.push('/sign-in')
   }
 
   const favoriteIcon = !user?.token ? (

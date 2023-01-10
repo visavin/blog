@@ -61,12 +61,6 @@ export default class BlogApiService {
     return await this.authEmptyPostRequest(`/articles/${slug}/favorite`, token)
   }
 
-  async createArticle(article, token) {
-    return await this.authPostRequest('/articles', token, {
-      article: article,
-    })
-  }
-
   async updateArticle(article, token, slug) {
     if (slug)
       return await this.authPutRequest(`/articles/${slug}`, token, {

@@ -9,7 +9,6 @@ import ArticleDetails from '../ArticleDetails'
 import SignUp from '../SignUp'
 import SignIn from '../SignIn'
 import Profile from '../Profile'
-// import NewArticle from '../NewArticle'
 import EditArticle from '../EditArticle'
 
 import classes from './App.module.scss'
