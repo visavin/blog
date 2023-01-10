@@ -29,20 +29,29 @@ const ArticlePreview = (props) => {
       })
   }
 
-  const onHeartClick = (event) => {
-    event.stopPropagation()
-    if (user?.token) {
-      if (item.favorited) dispatch(fetchDisLikeArticle(BlogApiService, item.slug, user.token))
-      else dispatch(fetchLikeArticle(BlogApiService, item.slug, user.token))
-    } else history.push('/sign-in')
+  const onHeartClick = () => {
+    //event.stopPropagation()
+    //if (user?.token) {
+    if (item.favorited) dispatch(fetchDisLikeArticle(BlogApiService, item.slug, user.token))
+    else dispatch(fetchLikeArticle(BlogApiService, item.slug, user.token))
+    //} else history.push('/sign-in')
   }
 
-  const favoriteIcon = !item.favorited ? (
-    <HeartOutlined onClick={onHeartClick} className={classes['article-heart-img']} />
-  ) : (
+  const favoriteIcon = !user?.token ? (
+    <HeartOutlined className={classes['article-heart-img']} />
+  ) : item.favorited ? (
     <HeartFilled
       onClick={onHeartClick}
-      className={[classes['article-heart-img'], classes['article-heart-img__favorite']].join(' ')}
+      className={[
+        classes['article-heart-img'],
+        classes['article-heart-img--link'],
+        classes['article-heart-img__favorite'],
+      ].join(' ')}
+    />
+  ) : (
+    <HeartOutlined
+      onClick={onHeartClick}
+      className={[classes['article-heart-img'], classes['article-heart-img--link']].join(' ')}
     />
   )
 
@@ -58,7 +67,9 @@ const ArticlePreview = (props) => {
     <div className={classes.article}>
       <div className={classes['article-left-column']}>
         <div className={classes['article-header']}>
-          <h5 className={classes['article-title']}>{item.title}</h5>
+          <h5 className={classes['article-title']} onClick={() => history.push(item.slug)}>
+            {item.title}
+          </h5>
           {favoriteIcon}
           <p className={classes['article-heart-count']}>{item.favoritesCount}</p>
         </div>

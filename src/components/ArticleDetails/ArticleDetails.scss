@@ -50,6 +50,10 @@
     &__favorite {
       color: #FF0707;
     }
+
+    &--link {
+      cursor: pointer;
+    }
   }
 
   &-heart-count {

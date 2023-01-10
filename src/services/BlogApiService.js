@@ -67,10 +67,15 @@ export default class BlogApiService {
     })
   }
 
-  async updateArticle(slug, article, token) {
-    return await this.authPutRequest(`/articles/${slug}`, token, {
-      article: article,
-    })
+  async updateArticle(article, token, slug) {
+    if (slug)
+      return await this.authPutRequest(`/articles/${slug}`, token, {
+        article: article,
+      })
+    else
+      return await this.authPostRequest('/articles', token, {
+        article: article,
+      })
   }
 
   async authPutRequest(url, token, bodyRequest) {

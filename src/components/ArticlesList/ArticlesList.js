@@ -10,7 +10,7 @@ import ArticlePreview from '../ArticlePreview'
 
 import classes from './ArticlesList.module.scss'
 
-const ArticlesList = ({ history }) => {
+const ArticlesList = () => {
   const dispatch = useDispatch()
   const articles = useSelector((state) => state.articles)
   const user = useSelector((state) => state.user)
@@ -32,7 +32,7 @@ const ArticlesList = ({ history }) => {
 
   const elements = articles.articles.map((item) => {
     return (
-      <li key={item.slug} onClick={() => history.push(item.slug)}>
+      <li key={item.slug}>
         <ArticlePreview item={item} />
       </li>
     )

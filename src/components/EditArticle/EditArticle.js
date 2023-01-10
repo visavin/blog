@@ -10,15 +10,26 @@ import classes from './EditArticle.module.scss'
 
 const EditArticle = (props) => {
   const { history, slug } = props
+  let item = null
+  let defaultFormValues = null
+  let title = 'Create new article'
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
-  if (!user?.token) return <Redirect to="/sign-in" />
   const articles = useSelector((state) => state.articles)
   if (!articles.articles.length) return <Redirect to="/articles/" />
   const article = useSelector((state) => state.article)
   const BlogApiService = useContext(BlogService)
 
-  const item = articles.articles.filter((element) => element.slug === slug)[0]
+  if (slug) {
+    item = articles.articles.filter((element) => element.slug === slug)[0]
+    defaultFormValues = {
+      title: item.title,
+      description: item.description,
+      body: item.body,
+      tagList: item.tagList,
+    }
+    title = 'Edit article'
+  }
 
   const {
     register,
@@ -27,12 +38,7 @@ const EditArticle = (props) => {
     handleSubmit,
   } = useForm({
     mode: 'all',
-    defaultValues: {
-      title: item.title,
-      description: item.description,
-      body: item.body,
-      tagList: item.tagList,
-    },
+    defaultValues: defaultFormValues,
   })
 
   const { fields, append, remove } = useFieldArray({
@@ -41,14 +47,12 @@ const EditArticle = (props) => {
   })
 
   const onSubmit = (data) => {
-    dispatch(fetchUpdateArticle(BlogApiService, slug, data, user.token))
+    dispatch(fetchUpdateArticle(BlogApiService, data, user.token, slug))
   }
 
   useEffect(() => {
-    if (article.article) {
-      if (article.article.slug) {
-        history.push('/')
-      }
+    if (article.article?.slug) {
+      history.push('/')
     }
   }, [article.article])
 
@@ -58,10 +62,12 @@ const EditArticle = (props) => {
     }
   }, [])
 
+  if (!user?.token) return <Redirect to="/sign-in" />
+
   return (
     <div className={classes['new-article-layout']}>
       <form className={classes['form']} onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={classes['form__header']}>Create new article</h1>
+        <h1 className={classes['form__header']}>{title}</h1>
         <div className={classes['form__input-fields']}>
           <label className={classes['form__label']}>
             Title

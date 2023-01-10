@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import './ArticleDetails.scss'
 import { BlogService } from '../../context'
-import classes from '../ArticlePreview/ArticlePreview.module.scss'
 import { articleResetRequest, fetchArticlesList, fetchDisLikeArticle, fetchLikeArticle } from '../../redux/actions'
 
 const ArticleDetails = (props) => {
@@ -35,19 +34,21 @@ const ArticleDetails = (props) => {
   }
 
   const onHeartClick = () => {
-    if (user?.token) {
-      if (item.favorited) dispatch(fetchDisLikeArticle(BlogApiService, item.slug, user.token))
-      else dispatch(fetchLikeArticle(BlogApiService, item.slug, user.token))
-    } else history.push('/sign-in')
+    //if (user?.token) {
+    if (item.favorited) dispatch(fetchDisLikeArticle(BlogApiService, item.slug, user.token))
+    else dispatch(fetchLikeArticle(BlogApiService, item.slug, user.token))
+    //} else history.push('/sign-in')
   }
 
-  const favoriteIcon = !item.favorited ? (
-    <HeartOutlined onClick={onHeartClick} className={classes['article-heart-img']} />
-  ) : (
+  const favoriteIcon = !user?.token ? (
+    <HeartOutlined className="article-heart-img" />
+  ) : item.favorited ? (
     <HeartFilled
       onClick={onHeartClick}
-      className={[classes['article-heart-img'], classes['article-heart-img__favorite']].join(' ')}
+      className="article-heart-img article-heart-img--link article-heart-img__favorite"
     />
+  ) : (
+    <HeartOutlined onClick={onHeartClick} className="article-heart-img article-heart-img--link" />
   )
 
   useEffect(() => {
